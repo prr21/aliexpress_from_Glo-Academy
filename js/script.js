@@ -38,11 +38,17 @@ window.addEventListener('DOMContentLoaded', () => {
             
             trigger.remove();
 
+            showConfirm(); //Анимация корзины
+            countBadge(1); //Увеличить счётчик корзины
+
             removeBtn.classList.add('goods__item-remove');
             removeBtn.innerHTML = '&times';
             item.appendChild(removeBtn);
 
             cartWrapper.appendChild(item);
+            
+            calcPrice() //Подсчитать сумму товаров
+            removeFromCart() //Объявить об обработчике событий
 
             if(empty) empty.style.display = 'none';
         })    
@@ -74,6 +80,38 @@ window.addEventListener('DOMContentLoaded', () => {
         }, 15);
     }
 
- 
+    // Смена кол-во товаров на счетчике корзины
+    function countBadge(i){
+        let items = cartWrapper.querySelectorAll('.goods__item');
+        badge.textContent = items.length + i ;
+    }
+    
+    // Подсчёт итоговой стоимости
+    function calcPrice(){
+        let price = cartWrapper.querySelectorAll('.goods__price > span'),
+            total = 0;
+
+        price.forEach((item) => {
+            total += +item.textContent;
+        })
+        totalCost.textContent = total;
+    }
+
+    // Удаление товара из корзины
+    function removeFromCart(){
+        let removeBtn = cartWrapper.querySelectorAll('.goods__item-remove');
+
+        removeBtn.forEach((btn) => {
+            btn.addEventListener('click', function() {
+                btn.parentElement.remove();
+
+                countBadge(0); //Уменьшить счётчик корзины
+                calcPrice(); //Подсчитать сумму товаров
+                
+                if(!cartWrapper.querySelectorAll('.goods__item').length) empty.style.display = '';
+            })
+        })
+    }
+
 })
 
