@@ -8,8 +8,9 @@ window.addEventListener('DOMContentLoaded', () => {
             products = document.querySelectorAll('.goods__item'),
             confirm = document.querySelector('.confirm'),
             badge = document.querySelector('.nav__badge'),
-            totalCost = document.querySelectorAll('.cart__total > span'),
-            titles = document.querySelectorAll('.goodst__title');
+            totalCost = document.querySelector('.cart__total > span'),
+            empty = cartWrapper.querySelector('.empty'),
+            titles = document.querySelectorAll('.goods__title');
 
     // Появление корзины
     open.addEventListener('click', openCart);
@@ -24,16 +25,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
     function closeCart(){
         cart.classList.remove('show')
-        document.body.style.overflow = 'hidden';
+        document.body.style.overflow = 'auto';
     }
 
+    // Добавление продукта в корзину
     goodsBtn.forEach((btn, i) => {
         btn.addEventListener('click', () => {
 
             let item = products[i].cloneNode(true),
                 trigger = item.querySelector('button'),
-                removeBtn = document.createElement('div'),
-                empty = cartWrapper.querySelector('.empty');
+                removeBtn = document.createElement('div');
             
             trigger.remove();
 
@@ -43,7 +44,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
             cartWrapper.appendChild(item);
 
-            if(empty) empty.remove();
+            if(empty) empty.style.display = 'none';
         })    
     });
+
+
+
 })
+
