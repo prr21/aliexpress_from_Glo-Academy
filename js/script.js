@@ -48,7 +48,32 @@ window.addEventListener('DOMContentLoaded', () => {
         })    
     });
 
+    // Сокращение описания товара
+    titles.forEach((item) => {
+        if (item.textContent.length > 70) {
+            item.textContent = item.textContent.slice(0,70) + '...';
+        } 
+    })
+    
+    // Анимация появления корзины
+    function showConfirm(){
+        let count = 100;
 
+        var intervalId = setInterval(() => {
+            if(count != 10){
+                confirm.style.cssText = 
+                    `display: block;
+                    transform: translateY(-${count}px);
+                    opacity: .${count}`
+                count-=2;
 
+            } else {
+                confirm.style.display = 'none';
+                clearInterval(intervalId);
+            }
+        }, 15);
+    }
+
+ 
 })
 
