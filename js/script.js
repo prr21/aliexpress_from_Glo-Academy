@@ -7,7 +7,6 @@ window.addEventListener('DOMContentLoaded', () => {
     
         callback();
     }
-
     // Создание товара
     function createElement(arr) {
         const goodsWrapper = document.querySelector('.goods__wrapper');
